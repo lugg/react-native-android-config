@@ -62,6 +62,7 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+        buildConfigField "String",  "FOO", '"BAR"'
     }
     buildTypes {
         release {
