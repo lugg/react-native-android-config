@@ -41,37 +41,21 @@ Then load it from `build.gradle` like:
 defaultConfig {
     def props = new Properties()
     props.load(new FileInputStream(rootProject.file('config.properties')))
-    props.each { key, val -> buildConfigField "String", key, val }
+    props.each { key, val ->
+        resValue "string", key, val
+        buildConfigField "String", key, val
+    }
 }
 ```
 
 You can do something similar under release in `buildTypes` to read a different set of credentials from another file.
 
-A similar pattern can be used to cover variables in `AndroidManifest.xml`. For instance, if you need to declare your Google Maps API key:
+With this we're also exposing these config variables to `AndroidManifest.xml`. For instance, if your Google Maps API key is in that file, you can consume it in your manifest like:
 
 ```xml
 <meta-data
   android:name="com.google.android.geo.API_KEY"
   android:value="@string/GOOGLE_MAPS_API_KEY" />
-```
-
-Then set that variable in `build.gradle`:
-
-```
-defaultConfig {
-    resValue "string", "GOOGLE_MAPS_API_KEY", "..."
-```
-
-Or read it from a different file again, like:
-
-```
-defaultConfig {
-    def props = new Properties()
-    props.load(new FileInputStream(rootProject.file('config.properties')))
-    props.each { key, val ->
-        resValue "string", key, val
-        buildConfigField "String", key, val
-    }
 ```
 
 
