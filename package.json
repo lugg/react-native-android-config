@@ -1,10 +1,14 @@
 {
   "name": "react-native-android-config",
   "version": "0.0.1",
-  "private": true,
+  "description": "React Native bridge to Android build configs set in Gradle",
+  "keywords": ["react-native", "android", "config", "12factor", "env", "config-var"],
+  "homepage": "https://github.com/luggg/react-native-android-config",
+  "author": "Pedro Belo",
   "files": [
     "android/",
     "index.android.js",
     "index.ios.js"
-  ]
+  ],
+  "license": "MIT"
 }
