@@ -1,6 +1,8 @@
 # Config variables for React Native apps in Android
 
-Module to expose variables set in Gradle to your javascript code in React Native.
+Module to expose config variables set in Gradle to your javascript code in React Native.
+
+Bringing some [12 factor](http://12factor.net/config) love to your mobile apps.
 
 
 ## Usage
@@ -23,6 +25,27 @@ var Config = require('react-native-android-config');
 Config.API_URL     // "https://myapi.com"
 Config.SHOW_ERRORS // true
 ```
+
+
+## More on Gradle and configs
+
+In case you're wondering how to keep secrets outside your source: create `android/config.properties`:
+
+```
+API_URL="https://:secret@myapi.com"
+```
+
+Then load it from `build.gradle` like:
+
+```
+defaultConfig {
+    def props = new Properties()
+    props.load(new FileInputStream(rootProject.file('config.properties')))
+    props.each { key, val -> buildConfigField "String", key, val }
+}
+```
+
+You can do something similar under release in `buildTypes` to read a different set of credentials from another file.
 
 
 ## Setup
