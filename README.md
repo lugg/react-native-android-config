@@ -29,7 +29,7 @@ Config.SHOW_ERRORS // true
 
 ## More on Gradle, config variables and 12 factor
 
-In case you're wondering how to keep secrets outside your source: create `android/config.properties`:
+In case you're wondering how to keep secrets outside your source code: create `android/config.properties`:
 
 ```
 API_URL="https://:secret@myapi.com"
