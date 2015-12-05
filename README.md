@@ -27,7 +27,7 @@ Config.SHOW_ERRORS // true
 ```
 
 
-## More on Gradle and configs
+## More on Gradle, config variables and 12 factor
 
 In case you're wondering how to keep secrets outside your source: create `android/config.properties`:
 
@@ -46,6 +46,33 @@ defaultConfig {
 ```
 
 You can do something similar under release in `buildTypes` to read a different set of credentials from another file.
+
+A similar pattern can be used to cover variables in `AndroidManifest.xml`. For instance, if you need to declare your Google Maps API key:
+
+```xml
+<meta-data
+  android:name="com.google.android.geo.API_KEY"
+  android:value="@string/GOOGLE_MAPS_API_KEY" />
+```
+
+Then set that variable in `build.gradle`:
+
+```
+defaultConfig {
+    resValue "string", "GOOGLE_MAPS_API_KEY", "..."
+```
+
+Or read it from a different file again, like:
+
+```
+defaultConfig {
+    def props = new Properties()
+    props.load(new FileInputStream(rootProject.file('config.properties')))
+    props.each { key, val ->
+        resValue "string", key, val
+        buildConfigField "String", key, val
+    }
+```
 
 
 ## Setup
