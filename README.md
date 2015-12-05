@@ -82,9 +82,6 @@ You can do something similar under release in `buildTypes` to read a different s
           super.onCreate(savedInstanceState);
           mReactRootView = new ReactRootView(this);
 
-          // initialize our PhotoRequest handler
-          mPhotoRequest = new ReactPhotoRequestPackage(this);
-
           mReactInstanceManager = ReactInstanceManager.builder()
                   .setApplication(getApplication())
                   .setBundleAssetName("index.android.bundle")
