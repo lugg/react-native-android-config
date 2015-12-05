@@ -12,9 +12,9 @@ Declare config variables in Gradle, under `android/app/build.gradle`:
 ```
 android {
     defaultConfig {
-      buildConfigField "String",  "API_URL",     '"https://myapi.com"'
-      buildConfigField "Boolean", "SHOW_ERRORS", "true"
-      ...
+        buildConfigField "String",  "API_URL",     '"https://myapi.com"'
+        buildConfigField "Boolean", "SHOW_ERRORS", "true"
+        ...
 ```
 
 Then access those from javascript:
