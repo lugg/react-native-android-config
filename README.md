@@ -29,28 +29,35 @@ Config.SHOW_ERRORS // true
 
 ## More on Gradle, config variables and 12 factor
 
-In case you're wondering how to keep secrets outside your source code: create `android/config.properties`:
+In case you're wondering how to keep secrets outside your source code: Create `.env` with:
 
 ```
-API_URL="https://:secret@myapi.com"
+API_URL=https://:secret@myapi.com
 ```
 
-Then load it from `build.gradle` like:
+Then read that env var from `build.gradle` like:
 
 ```
 defaultConfig {
-    def props = new Properties()
-    props.load(new FileInputStream(rootProject.file('config.properties')))
-    props.each { key, val ->
-        resValue "string", key, val
-        buildConfigField "String", key, val
-    }
+    buildConfigField "String", "API_URL", "\"$System.env.API_URL\""
 }
 ```
 
-You can do something similar under release in `buildTypes` to read a different set of credentials from another file.
+Now use [Foreman](https://github.com/ddollar/foreman) or a similar tool to run the app so the environment vars are available to Gradle:
 
-With this we're also exposing these config variables to `AndroidManifest.xml`. For instance, if your Google Maps API key is in that file, you can consume it in your manifest like:
+```
+$ foreman run react-native run-android --stacktrace --debug
+```
+
+You can also use this to apply variables in `AndroidManifest.xml`. For instance, if you have `GOOGLE_MAPS_API_KEY` set in the environment, then read it in Gradle like:
+
+```
+defaultConfig {
+    resValue "string", "GOOGLE_MAPS_API_KEY", "\"$System.env.GOOGLE_MAPS_API_KEY\""
+}
+```
+
+And then you can use it in your manifest:
 
 ```xml
 <meta-data
