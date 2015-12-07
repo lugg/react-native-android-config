@@ -72,6 +72,8 @@ And then you can use it in your manifest:
   android:value="@string/GOOGLE_MAPS_API_KEY" />
 ```
 
+Keep in mind the env var `APP_NAME` is reserved/set by Gradle though, so avoid that one.
+
 
 ## Setup
 
