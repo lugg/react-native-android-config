@@ -26,6 +26,13 @@ Config.API_URL     // "https://myapi.com"
 Config.SHOW_ERRORS // true
 ```
 
+Gradle sets some variables by default:
+
+- `VERSION_NAME` and `VERSION_CODE`, both coming from the build settings. Keep in mind the code is a number
+- `APPLICATION_ID`: Your package name, eg: `com.Example`
+- `DEBUG`: set to `true` when running the app locally
+- `BUILD_TYPE` and `FLAVOR`: more build settings
+
 
 ## More on Gradle, config variables and 12 factor
 
